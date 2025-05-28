@@ -1,18 +1,20 @@
 // import React from 'react'
-import { useState } from "react"
+import { useContext } from "react"
+import { FunctionContext } from "../providers/FunctionProvider"
+import { Button } from "@mui/material"
+
 
 const Login = () => {
-    const [ isLogin, setIsLogin ] = useState(false);
     
+    const { setIsLogin } = useContext(FunctionContext)
+
     // ログイン時の入力内容チェック
 
-    function handleLogin() {
-        let num: string = "0001";
-        let name: string = "ツナ田 マグ太郎";
-        let telNum: number = 1234;
-    }
-
-
+    // function handleLogin() {
+    //     let num: string = "0001";
+    //     let name: string = "ツナ田 マグ太郎";
+    //     let telNum: number = 1234;
+    // }
 
     return (
     <div id="login-screen">
@@ -38,7 +40,24 @@ const Login = () => {
                         <input type="text" id="tel" name="tel" required placeholder="1234" value="1234"></input>
                     </div>
                     <div className="form-row">
-                        <input type="submit" id="login-btn" value="予約画面へ"></input>
+                        {/* <input
+                            type="submit"
+                            id="login-btn"
+                            value="予約画面へ"
+                            onClick={()=>{
+                                console.log('ログインボタンがおされたよ')
+                                setIsLogin(true)
+                            }}
+                        ></input> */}
+                        <Button
+                            variant="contained"
+                            onClick={() => {
+                                console.log('ログインボタンがおされたよ')
+                                setIsLogin(true)
+                            }}
+                        >
+                            予約画面へ
+                        </Button>
                     </div>
             </div>
         </div>
