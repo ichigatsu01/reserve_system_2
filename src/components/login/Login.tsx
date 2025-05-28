@@ -1,7 +1,7 @@
 // import React from 'react'
 import { useContext } from "react"
 import { FunctionContext } from "../providers/FunctionProvider"
-import { Button } from "@mui/material"
+import { Button, Divider, Stack, TextField, Typography } from "@mui/material"
 
 
 const Login = () => {
@@ -17,51 +17,27 @@ const Login = () => {
     // }
 
     return (
-    <div id="login-screen">
-        <div>
-            <div id="login-announce">
-                <h1>Web順番予約システム</h1>
-                <p>受診される方の情報を入力してください。</p>
-                <p>診察番号は診察券の左上に記載されています。</p>
-                <p>※診察券を紛失された方は直接ご来院ください</p>
-            </div>
-            <h2>入力フォーム</h2>
-            <div id="login-form">
-                    <div className="form-row">
-                        <label htmlFor="num">診察番号：</label>
-                        <input type="text" id="num" name="num" required placeholder="0001" value="0001"></input>
-                    </div>
-                    <div className="form-row">
-                        <label htmlFor="name">飼い主様のお名前：</label>
-                        <input type="text" id="name" name="name" required placeholder="ツナ田 マグ太郎" value="ツナ田 マグ太郎"></input>
-                    </div>
-                    <div className="form-row">
-                        <label htmlFor="tel">電話番号（下4桁）：</label>
-                        <input type="text" id="tel" name="tel" required placeholder="1234" value="1234"></input>
-                    </div>
-                    <div className="form-row">
-                        {/* <input
-                            type="submit"
-                            id="login-btn"
-                            value="予約画面へ"
-                            onClick={()=>{
-                                console.log('ログインボタンがおされたよ')
-                                setIsLogin(true)
-                            }}
-                        ></input> */}
-                        <Button
-                            variant="contained"
-                            onClick={() => {
-                                console.log('ログインボタンがおされたよ')
-                                setIsLogin(true)
-                            }}
-                        >
-                            予約画面へ
-                        </Button>
-                    </div>
-            </div>
-        </div>
-    </div>
+        <Stack spacing={4} sx={{maxWidth: '400px', mx: 'auto', my: '25px'}}>
+            <Stack spacing={2}>
+                <Typography variant="h4">Web順番予約システム</Typography>
+                <Typography variant="body1">受診される方の情報を入力してください。</Typography>
+                <Typography variant="body1">診察番号は診察券の左上に記載されています。</Typography>
+                <Typography variant="body1">※診察券を紛失された方は直接ご来院ください</Typography>
+            </Stack>
+            <Divider variant="middle" sx={{borderColor: '#454545'}}/>
+            <Stack spacing={2}>
+                <Typography variant="h5">入力フォーム</Typography>
+                <TextField id="num" label="診療番号" required/>
+                <TextField id="num" label="飼い主様のお名前" required/>
+                <TextField id="num" label="電話番号(下4桁)" required/>
+                <Button
+                    variant="contained"
+                    onClick={() => setIsLogin(true)}
+                >
+                    予約画面へ
+                </Button>
+            </Stack>
+        </Stack>
     )
 }
 

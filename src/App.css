@@ -50,7 +50,7 @@ body {
 }
 
 /** メイン */
-#login-screen {
+/* #login-screen {
     height: 80vh; 
     display: flex;
     justify-content: center;
@@ -61,7 +61,6 @@ body {
 #login-announce {
     text-align: left;
     line-height: 1.7;
-    /* margin-bottom: 20px; */
     border-bottom: 1px solid #79A1D4;
 }
 
@@ -74,17 +73,9 @@ body {
 #login-btn {
     height: 50px;
     width: 100px;
-}
+} */
 
-.form-row {
-    display: flex;
-    margin-bottom: 20px;
-    justify-content: center;
-}
-.form-row label {
-    width: 160px; /* ラベルの幅を揃える */
-    margin-right: 8px;
-}
+
 
 /* *予約管理画面 */
 #user-management-screen {
