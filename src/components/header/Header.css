@@ -1,0 +1,41 @@
+#header {
+    background-color: #79A1D4;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    height: 100px;
+}
+
+#header #logo {
+    flex: 30;
+    margin: auto;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#header #navi {
+    flex: 70;
+    margin: 20px;
+    padding-right: 20px;
+}
+
+#header #navi ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+}
+
+#header #navi ul li {
+    margin: 5px;
+    color: #ffeed5;
+    padding: 10px;
+    align-content: center;
+}
+
+#header #navi ul #reserve {
+    background-color: #abcae8;
+    color: #454545;
+    border-radius: 20px;
+}

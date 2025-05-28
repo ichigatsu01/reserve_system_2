@@ -1,0 +1,112 @@
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #ffeed5;
+    color: #454545;
+    font-family: Meiryo, 'メイリオ', sans-serif;
+}
+
+#header {
+    background-color: #79A1D4;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    height: 100px;
+}
+
+#header #logo {
+    flex: 30;
+    margin: auto;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#header #navi {
+    flex: 70;
+    margin: 20px;
+    padding-right: 20px;
+}
+
+#header #navi ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+}
+
+#header #navi ul li {
+    margin: 5px;
+    color: #ffeed5;
+    padding: 10px;
+    align-content: center;
+}
+
+#header #navi ul #reserve {
+    background-color: #abcae8;
+    color: #454545;
+    border-radius: 20px;
+}
+
+/** メイン */
+#login-screen {
+    height: 80vh; 
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#login-announce {
+    text-align: left;
+    line-height: 1.7;
+    /* margin-bottom: 20px; */
+    border-bottom: 1px solid #79A1D4;
+}
+
+#login-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#login-btn {
+    height: 50px;
+    width: 100px;
+}
+
+.form-row {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+.form-row label {
+    width: 160px; /* ラベルの幅を揃える */
+    margin-right: 8px;
+}
+
+/* *予約管理画面 */
+#user-management-screen {
+    display: none;
+    /* height: 80vh;  */
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#logout-btn {
+    margin-bottom: 30px;
+    height: 50px;
+    width: 100px;
+}
+
+#reservation-detail {
+    background-color: #abcae8;
+    columns: #000;
+    width: 500px;
+    height: 400px;
+    border-radius: 30px;
+    margin: 10px auto;
+}

@@ -1,8 +1,14 @@
 // import React from 'react'
+import Header from './components/header/Header'
+import './App.css'
+import Login from './components/login/Login'
 
 const App = () => {
   return (
-    <div>App</div>
+    <>
+      <Header />
+      <Login />
+    </>
   )
 }
 
