@@ -1,54 +1,21 @@
-# React + TypeScript + Vite
+# Web順番予約アプリ
+（作成中）  
+Fullcalender.jsとFirestoreの連携による予約管理機能を持たせたアプリです。  
+ログイン機能では利用者個人での予約登録・変更・削除が出来ます。  
+GoogleFirebaseの認証機能で管理者としてログインすることで、予約全体の管理や休診日の設定などが行えます。  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## スクリーンショット
+※ハンバーガーボタンを設置したのちにここに保存する
 
-Currently, two official plugins are available:
+## 技術スタック
+- HTML/CSS
+- TypeScript
+- Fullcalender.js
+- React
+- Vite
+- MaterialUI
+- Firebase/Firestore
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 作成の狙い
+- Firestoreを活用したNoSQLの技術習得
+- TypeScriptによるコーディングの練習
