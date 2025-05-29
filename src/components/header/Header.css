@@ -7,12 +7,12 @@
     height: 100px;
 }
 
-#header #logo {
+/* #header #logo {
     flex: 30;
     margin: auto;
     font-size: 25px;
     font-weight: bold;
-}
+} */
 
 #header #navi {
     flex: 70;

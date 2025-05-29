@@ -5,16 +5,14 @@ import { Button, Divider, Stack, TextField, Typography } from "@mui/material"
 
 
 const Login = () => {
-    
-    const { setIsLogin } = useContext(FunctionContext)
+    // Contextからの輸入
+    const { setIsLogin, patientNum, setPatientNum, patientName ,setPatientName, patientTel, setPatientTel } = useContext(FunctionContext)
 
-    // ログイン時の入力内容チェック
-
-    // function handleLogin() {
-    //     let num: string = "0001";
-    //     let name: string = "ツナ田 マグ太郎";
-    //     let telNum: number = 1234;
-    // }
+    const handleLogin = () => {
+        console.log(patientNum)
+        console.log(patientName)
+        console.log(patientTel)
+    }
 
     return (
         <Stack spacing={4} sx={{maxWidth: '400px', mx: 'auto', my: '25px'}}>
@@ -27,12 +25,13 @@ const Login = () => {
             <Divider variant="middle" sx={{borderColor: '#454545'}}/>
             <Stack spacing={2}>
                 <Typography variant="h5">入力フォーム</Typography>
-                <TextField id="num" label="診療番号" required/>
-                <TextField id="num" label="飼い主様のお名前" required/>
-                <TextField id="num" label="電話番号(下4桁)" required/>
+                <TextField label="診療番号" required onChange={(e) =>setPatientNum(e.target.value)}/>
+                <TextField label="飼い主様のお名前" required onChange={(e) =>setPatientName(e.target.value)}/>
+                <TextField label="電話番号下4桁" required onChange={(e) =>setPatientTel(e.target.value)}/>
                 <Button
                     variant="contained"
-                    onClick={() => setIsLogin(true)}
+                    // onClick={() => setIsLogin(true)}
+                    onClick={handleLogin}
                 >
                     予約画面へ
                 </Button>
