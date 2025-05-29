@@ -5,7 +5,9 @@ Fullcalender.jsとFirestoreの連携による予約管理機能を持たせた�
 GoogleFirebaseの認証機能で管理者としてログインすることで、予約全体の管理や休診日の設定などが行えます。  
 
 ## スクリーンショット
-※ハンバーガーボタンを設置したのちにここに保存する
+<p align="center">
+  <img src="public/ss1.jpg" width="20%" />
+</p>
 
 ## 技術スタック
 - HTML/CSS
