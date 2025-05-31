@@ -3,8 +3,9 @@ import Header from './components/header/Header'
 import './App.css'
 import Login from './components/login/Login'
 import { FunctionContext } from './components/providers/FunctionProvider'
-import PatientCalender from './components/patient-calender/PatientCalender'
 import { useContext } from 'react'
+import PatientMenu from './components/patient-calendar/PatientMenu'
+
 
 const App = () => {
   const { isLogin } = useContext(FunctionContext)
@@ -14,14 +15,14 @@ const App = () => {
     <>
         <Header />
         {/* <Login /> */}
-        <PatientCalender />
+        <PatientMenu />
     </>
     :
     // 未ログイン時
     <>
         <Header />
         <Login />
-        {/* <PatientCalender /> */}
+        {/* <PatientMenu /> */}
     </>
   )
 }

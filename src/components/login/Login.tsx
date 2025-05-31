@@ -22,7 +22,7 @@ const Login = () => {
             newAlert.push("診療番号が入力されていません")
             setIsNumError(true)
         } else if (!isOnlyDigits(patientNum)) {
-            newAlert.push("診療番号には数字のみ入力してください")
+            newAlert.push("診療番号には半角数字のみ入力してください")
             setIsNumError(true)
         } else {
             setIsNumError(false)
@@ -41,12 +41,12 @@ const Login = () => {
             newAlert.push("電話番号が入力されていません")
             setIsTelError(true)
         } else if (!isOnlyDigits(patientTel)) {
-            newAlert.push("電話番号には数字のみ入力してください")
+            newAlert.push("電話番号には半角数字のみ入力してください")
             setIsTelError(true)
         } else {
             setIsTelError(false)
         }
-        setAlertMessage(newAlert)
+        newAlert.length == 0 ? setIsLogin(true) : setAlertMessage(newAlert)
     };
 
     return (
@@ -79,6 +79,18 @@ const Login = () => {
                     onClick={handleLogin}
                 >
                     予約画面へ
+                </Button>
+                <Button // !テスト用ログインボタン
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                        setIsLogin(true)
+                        setPatientNum('0001')
+                        setPatientName('ツナ田　まぐ太郎')
+                        setPatientTel('1234')
+                    }}
+                >
+                    テスト用ログインボタン
                 </Button>
             
             </Stack>
