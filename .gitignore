@@ -25,4 +25,4 @@ dist-ssr
 
 # 追加
 src/test
-.env
+firebaseConfig.env
