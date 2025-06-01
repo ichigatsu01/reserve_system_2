@@ -2,14 +2,14 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { FunctionProvider } from './components/providers/FunctionProvider.tsx'
-// @ts-ignore
-import TestCalender from './test/TestCalender.jsx'
+import { InputProvider } from './components/providers/ReserveProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <FunctionProvider>
-      <App />
-      {/* <TestCalender /> */}
+      <InputProvider>
+        <App />
+      </InputProvider>
     </FunctionProvider>
   </StrictMode>,
 )
