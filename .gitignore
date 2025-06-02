@@ -25,4 +25,6 @@ dist-ssr
 
 # 追加
 src/test
-firebaseConfig.env
+.env
+.env.local
+reserve-system-e0a66-firebase-adminsdk-fbsvc-965df04102.json
