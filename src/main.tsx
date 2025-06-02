@@ -9,8 +9,8 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <FunctionProvider>
       <InputProvider>
-        {/* <App /> */}
-        <TestFirebase />
+        <App />
+        {/* <TestFirebase /> */}
       </InputProvider>
     </FunctionProvider>
   </StrictMode>,

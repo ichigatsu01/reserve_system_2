@@ -8,12 +8,14 @@ type InputContextType = {
     setPetType: React.Dispatch<React.SetStateAction<string>>;
     details: string;
     setDetails: React.Dispatch<React.SetStateAction<string>>;
-    reservedDate: string;
+    reservedDate: string; // Firebaseに登録する予約日
     setReservedDate: React.Dispatch<React.SetStateAction<string>>;
     entriedDate: string;
     setEntriedDate: React.Dispatch<React.SetStateAction<string>>;
     isOpenForm: boolean;
     setIsOpenForm:  React.Dispatch<React.SetStateAction<boolean>>;
+    isOpenConfirm: boolean;
+    setIsOpenConfirm:  React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // 仮の値を与える
@@ -29,7 +31,9 @@ export const InputContext = createContext<InputContextType>({
     entriedDate: "",
     setEntriedDate: () => {},
     isOpenForm: false,
-    setIsOpenForm: () => {}
+    setIsOpenForm: () => {},
+    isOpenConfirm: false,
+    setIsOpenConfirm: () => {}
 })
 
 // childrenの型を定義
@@ -44,10 +48,11 @@ export const InputProvider = ({ children }: InputProviderProps) => {
     const [ reservedDate, setReservedDate ] = useState("")
     const [ entriedDate, setEntriedDate ] = useState("")
     const [ isOpenForm, setIsOpenForm ] = useState(false)
+    const [ isOpenConfirm, setIsOpenConfirm ] = useState(false)
 
     return (
         <InputContext.Provider value={{
-            petName, setPetName, petType, setPetType, details, setDetails, reservedDate, setReservedDate, entriedDate, setEntriedDate, isOpenForm, setIsOpenForm
+            petName, setPetName, petType, setPetType, details, setDetails, reservedDate, setReservedDate, entriedDate, setEntriedDate, isOpenForm, setIsOpenForm, isOpenConfirm, setIsOpenConfirm
         }}>
             {children}
         </InputContext.Provider>

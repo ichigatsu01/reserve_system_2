@@ -16,7 +16,6 @@ const Login = () => {
     const isOnlyDigits = (text: string) => /^[0-9]+$/.test(text);
     const handleLogin = () => {
         // 診療番号チェック
-        console.log(patientNum)
         let newAlert: string[] = [];
         if (patientNum.trim() == "") {
             newAlert.push("診療番号が入力されていません")
@@ -28,7 +27,6 @@ const Login = () => {
             setIsNumError(false)
         }
         // 飼い主名チェック
-        console.log(patientName)
         if (patientName.trim() == "") {
             newAlert.push("飼い主様のお名前が入力されていません")
             setIsNameError(true)
@@ -36,7 +34,6 @@ const Login = () => {
             setIsNameError(false)
         }
         // 電話番号チェック
-        console.log(patientTel)
         if (patientTel.trim() == "") {
             newAlert.push("電話番号が入力されていません")
             setIsTelError(true)
