@@ -10,6 +10,8 @@ type InputContextType = {
     setDetails: React.Dispatch<React.SetStateAction<string>>;
     reservedDate: string; // Firebaseに登録する予約日
     setReservedDate: React.Dispatch<React.SetStateAction<string>>;
+    reservedDateYMDHM: string; // 予約確認時に表示する、読みやすくした予約日
+    setReservedDateYMDHM: React.Dispatch<React.SetStateAction<string>>;
     entriedDate: string;
     setEntriedDate: React.Dispatch<React.SetStateAction<string>>;
     isOpenForm: boolean;
@@ -28,6 +30,8 @@ export const InputContext = createContext<InputContextType>({
     setDetails: () => {},
     reservedDate: "",
     setReservedDate: () => {},
+    reservedDateYMDHM: "",
+    setReservedDateYMDHM: () => {},
     entriedDate: "",
     setEntriedDate: () => {},
     isOpenForm: false,
@@ -49,10 +53,12 @@ export const InputProvider = ({ children }: InputProviderProps) => {
     const [ entriedDate, setEntriedDate ] = useState("")
     const [ isOpenForm, setIsOpenForm ] = useState(false)
     const [ isOpenConfirm, setIsOpenConfirm ] = useState(false)
+    const [ reservedDateYMDHM, setReservedDateYMDHM ] = useState("")
 
     return (
         <InputContext.Provider value={{
-            petName, setPetName, petType, setPetType, details, setDetails, reservedDate, setReservedDate, entriedDate, setEntriedDate, isOpenForm, setIsOpenForm, isOpenConfirm, setIsOpenConfirm
+            petName, setPetName, petType, setPetType, details, setDetails, reservedDate, setReservedDate,
+            reservedDateYMDHM, setReservedDateYMDHM, entriedDate, setEntriedDate, isOpenForm, setIsOpenForm, isOpenConfirm, setIsOpenConfirm
         }}>
             {children}
         </InputContext.Provider>

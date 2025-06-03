@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import { useContext, useEffect, useState } from 'react'
 import { InputContext } from '../providers/ReserveProvider'
 import InputReserve from './InputReserve/InputReserve'
+import ReserveConfirm from './InputReserve/ReserveConfirm'
 
 //* memo:
 //* EventContentArg ... イベントの内容を表示するための型
@@ -13,7 +14,7 @@ import InputReserve from './InputReserve/InputReserve'
 
 const AddCalendar = () => {
     // Firebaseにデータを渡すために変数を引っ張ってくる
-    const { isOpenForm, setIsOpenForm } = useContext(InputContext)
+    const { isOpenForm, setIsOpenForm, isOpenConfirm } = useContext(InputContext)
 
     // !InputReserveに渡すargの獲得
     const [ dateArg, setDateArg ] = useState<DateClickArg | null>(null)
@@ -49,11 +50,11 @@ const AddCalendar = () => {
             setIsOpenForm(true)
         }
     }, [dateArg])
-
     const handleDateClick = (arg: DateClickArg) => {
         setDateArg(arg)
     }
 
+    // Fullcalendarを作成する
     function executeCalendar() {
         return (
             <Box sx={{backgroundColor: '#fff', padding: '20px', borderRadius: '20px'}}>
@@ -102,6 +103,8 @@ const AddCalendar = () => {
                 {executeCalendar()}
             </Box>
             {isOpenForm && <InputReserve dateArg={dateArg} />}
+            {isOpenConfirm && <ReserveConfirm />}
+
         </>
     )
 }
