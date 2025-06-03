@@ -42,3 +42,17 @@ Routeを使うメリットはアドレスが明示的になりユーザビリテ
 「.env.local」で固定。.envは決して拡張子ではないので、ファイル名を追記してはいけない。    
 - エラーチェックについてはログイン画面より予約確認画面への移行タイミングの物の方がすっきり書けている     
 set関数を乱発していないのがポイント。
+
+## Firestoreの理解を深める
+- さんざん苦しめられている。ちょっと理解は出来てきたかもしれない？    
+firestoreに登録された内容を引っ張ってくる。  
+getDocsで取得できるデータ：QueryDocumentSnapshot(Firestoreの正式なクラス名らしい)には様々なプロパティを持つ。      
+.size=何件ヒットしたか、.empty=空かどうか。その中の.docsが中にあるドキュメントの一覧。    
+     - イメージ：   
+     ```
+     querySnapshot.docs = [
+     QueryDocumentSnapshot,
+     QueryDocumentSnapshot,
+     ...
+     ]
+     ```  
