@@ -1,26 +1,46 @@
-import FullCalendar from '@fullcalendar/react'
-import { Box } from '@mui/material'
-import type { DateClickArg, EventContentArg } from 'fullcalendar/index.js'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-import { useContext, useEffect, useState } from 'react'
-import { InputContext } from '../providers/ReserveProvider'
-import InputReserve from './InputReserve/InputReserve'
-import ReserveConfirm from './InputReserve/ReserveConfirm'
+import FullCalendar from '@fullcalendar/react';
+import { Box } from '@mui/material';
+import type { DateClickArg, EventContentArg } from 'fullcalendar/index.js';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import { useContext, useEffect, useState } from 'react';
+import { InputContext } from '../providers/ReserveProvider';
+import InputReserve from './InputReserve/InputReserve';
+import ReserveConfirm from './InputReserve/ReserveConfirm';
+import { loadPatient } from '../firebase/LoadReservePatient';
 
 //* memo:
 //* EventContentArg ... イベントの内容を表示するための型
 //* DateClickArg ... 日付をクリックしたときの情報
 
+type eventType = {
+    daysOfWeek?: number[],
+    display?: string,
+    color?: string,
+    startTime?: string,
+    endTime?: string,
+    title?: string,
+    start?: string,
+    end?: string
+}
+
+// Firestore由来のイベントを取得するための型。まず中身の型を設定する
+type addEventsType = {
+    title: string,
+    start: string,
+    end: string
+}
+// addEventsには複数日時の予約が入るため、配列であることを明示
+type addEventsArrayType = addEventsType[];
+
 const AddCalendar = () => {
-    // Firebaseにデータを渡すために変数を引っ張ってくる
     const { isOpenForm, setIsOpenForm, isOpenConfirm } = useContext(InputContext)
 
     // !InputReserveに渡すargの獲得
     const [ dateArg, setDateArg ] = useState<DateClickArg | null>(null)
 
-    const events = [
-        // 営業時間外の色を強調したい
+    // カレンダーに表示するイベント
+    const [ allEvents, setAllEvents ] = useState<eventType[]>([
         {
         daysOfWeek: [0, 3],
         display: 'background',
@@ -41,8 +61,24 @@ const AddCalendar = () => {
         color: '#000'
         },
         // ここから通常イベント
-        { title: '予約済み（現在時刻）', start: new Date()}
-    ]
+        { title: 'ダミー', start: '2025-06-04T13:00:00', end: '2025-06-04T13:30:00', color: 'red' }
+    ])
+
+    //* Firestoreからのイベント取得用。後に追加する予定の病院休業日など、管理側のイベントも追加できるようにするか要検討
+    const [ addEvents, setAddEvents ] = useState<addEventsArrayType>([])
+
+    // 患者予約取得
+    useEffect(() => {
+        const fetchData = async() => {
+            const result = await loadPatient();
+            if (result) {
+                setAddEvents(result);
+            }
+        };
+        fetchData();
+    }, [])
+
+
 
     // 日付クリック関数
     useEffect(() => {
@@ -61,7 +97,7 @@ const AddCalendar = () => {
                 <FullCalendar
                     plugins={[timeGridPlugin, interactionPlugin ]} // これを読み込ませないとtimeGridWeekが動かない
                     initialView='timeGridWeek' // カレンダーを週単位で表示する
-                    events={events} // カレンダー内に表示するイベント
+                    events={allEvents} // カレンダー内に表示するイベント
                     eventContent={renderEventContent} // イベントのうち何を表示するかを調整する
                     locale={'ja'} // 日本語表記
                     height={'auto'} // これがないと画面の高さを大きく取ってしまう
