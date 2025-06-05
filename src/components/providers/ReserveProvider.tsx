@@ -15,9 +15,10 @@ type InputContextType = {
     entriedDate: string;
     setEntriedDate: React.Dispatch<React.SetStateAction<string>>;
     isOpenForm: boolean;
-    setIsOpenForm:  React.Dispatch<React.SetStateAction<boolean>>;
+    setIsOpenForm: React.Dispatch<React.SetStateAction<boolean>>;
     isOpenConfirm: boolean;
-    setIsOpenConfirm:  React.Dispatch<React.SetStateAction<boolean>>;
+    setIsOpenConfirm: React.Dispatch<React.SetStateAction<boolean>>;
+    allClear: () => void
 }
 
 // 仮の値を与える
@@ -37,13 +38,15 @@ export const InputContext = createContext<InputContextType>({
     isOpenForm: false,
     setIsOpenForm: () => {},
     isOpenConfirm: false,
-    setIsOpenConfirm: () => {}
+    setIsOpenConfirm: () => {},
+    allClear: () => {}
 })
 
 // childrenの型を定義
 type InputProviderProps = {
     children: ReactNode
 }
+
 
 export const InputProvider = ({ children }: InputProviderProps) => {
     const [ petName, setPetName ] = useState("")
@@ -55,10 +58,21 @@ export const InputProvider = ({ children }: InputProviderProps) => {
     const [ isOpenConfirm, setIsOpenConfirm ] = useState(false)
     const [ reservedDateYMDHM, setReservedDateYMDHM ] = useState("")
 
+    // setter群のリセット関数
+    const allClear = () => {
+        setPetName(""),
+        setPetType(""),
+        setDetails(""),
+        setReservedDate(""),
+        setEntriedDate(""),
+        setReservedDateYMDHM("")
+    }
+
     return (
         <InputContext.Provider value={{
             petName, setPetName, petType, setPetType, details, setDetails, reservedDate, setReservedDate,
-            reservedDateYMDHM, setReservedDateYMDHM, entriedDate, setEntriedDate, isOpenForm, setIsOpenForm, isOpenConfirm, setIsOpenConfirm
+            reservedDateYMDHM, setReservedDateYMDHM, entriedDate, setEntriedDate, isOpenForm, setIsOpenForm,
+            isOpenConfirm, setIsOpenConfirm, allClear
         }}>
             {children}
         </InputContext.Provider>

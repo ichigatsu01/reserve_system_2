@@ -11,7 +11,7 @@ type Props = {
 const InputReserve = ({ dateArg }: Props) => {
     const { patientName, patientNum } = useContext(FunctionContext)
     const { isOpenForm, setIsOpenForm, petName, setPetName, petType, setPetType, details, setDetails,
-        setIsOpenConfirm, setReservedDate, reservedDateYMDHM, setReservedDateYMDHM
+        setIsOpenConfirm, setReservedDate, reservedDateYMDHM, setReservedDateYMDHM, allClear
     } = useContext(InputContext)
 
     const [ alertMessage, setAlertMessage ] = useState<string[]>([])
@@ -124,7 +124,10 @@ const InputReserve = ({ dateArg }: Props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleConfirm}>予約確認画面へ</Button>
-                    <Button onClick={() => setIsOpenForm(false)}>予約中止</Button>
+                    <Button onClick={() => {
+                        allClear()
+                        setIsOpenForm(false)
+                        }}>予約中止</Button>
                 </DialogActions>
             </Dialog>
         </>

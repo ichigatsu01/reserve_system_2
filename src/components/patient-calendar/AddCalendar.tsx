@@ -25,13 +25,13 @@ type eventType = {
 }
 
 // Firestore由来のイベントを取得するための型。まず中身の型を設定する
-type addEventsType = {
-    title: string,
-    start: string,
-    end: string
-}
+// type addEventsType = {
+//     title: string,
+//     start: string,
+//     end: string
+// }
 // addEventsには複数日時の予約が入るため、配列であることを明示
-type addEventsArrayType = addEventsType[];
+// type addEventsArrayType = addEventsType[];
 
 const AddCalendar = () => {
     const { isOpenForm, setIsOpenForm, isOpenConfirm } = useContext(InputContext)
@@ -65,20 +65,19 @@ const AddCalendar = () => {
     ])
 
     //* Firestoreからのイベント取得用。後に追加する予定の病院休業日など、管理側のイベントも追加できるようにするか要検討
-    const [ addEvents, setAddEvents ] = useState<addEventsArrayType>([])
+    // しかしよく考えると出番がなかったという
+    // const [ addEvents, setAddEvents ] = useState<addEventsArrayType>([])
 
     // 患者予約取得
     useEffect(() => {
         const fetchData = async() => {
             const result = await loadPatient();
             if (result) {
-                setAddEvents(result);
+                setAllEvents(prev => [...prev, ...result]);
             }
         };
         fetchData();
     }, [])
-
-
 
     // 日付クリック関数
     useEffect(() => {
@@ -140,7 +139,6 @@ const AddCalendar = () => {
             </Box>
             {isOpenForm && <InputReserve dateArg={dateArg} />}
             {isOpenConfirm && <ReserveConfirm />}
-
         </>
     )
 }

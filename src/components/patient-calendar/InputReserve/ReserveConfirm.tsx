@@ -6,7 +6,9 @@ import { sendFirebase } from '../../firebase/SendReserve'
 
 const ReserveConfirm = () => {
     const { patientName, patientNum } = useContext(FunctionContext)
-    const { isOpenConfirm, setIsOpenConfirm, reservedDate, reservedDateYMDHM, petName, petType, details, setIsOpenForm } = useContext(InputContext);
+    const { isOpenConfirm, setIsOpenConfirm, reservedDate, reservedDateYMDHM, petName, petType,
+        details, setIsOpenForm, allClear
+        } = useContext(InputContext);
     useEffect(() => {
         setIsOpenForm(false);
     })
@@ -21,11 +23,11 @@ const ReserveConfirm = () => {
         petType: petType,
         details: details
     }
-    console.log(reserveSummary.entriedDate);
 
     const handleConfirm = () => {
         sendFirebase(reserveSummary);
         setIsOpenConfirm(false)
+        allClear()
     }
     return (
         <div>
@@ -46,7 +48,10 @@ const ReserveConfirm = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleConfirm}>予約確定</Button>
-                    <Button onClick={() => setIsOpenConfirm(false)}>予約中止</Button>
+                    <Button onClick={() => {
+                        allClear()
+                        setIsOpenConfirm(false)
+                        }}>予約中止</Button>
                 </DialogActions>
             </Dialog>
         </div>
