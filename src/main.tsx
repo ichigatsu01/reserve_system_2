@@ -11,8 +11,8 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <FunctionProvider>
       <InputProvider>
-        <App />
-        {/* <TestCalender /> */}
+        {/* <App /> */}
+        <TestCalender />
         {/* <TestFirebase /> */}
       </InputProvider>
     </FunctionProvider>

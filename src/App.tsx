@@ -14,7 +14,6 @@ const App = () => {
         // ログイン時
     <>
         <Header />
-        {/* <Login /> */}
         <PatientMenu />
     </>
     :
@@ -22,7 +21,6 @@ const App = () => {
     <>
         <Header />
         <Login />
-        {/* <PatientMenu /> */}
     </>
   )
 }
