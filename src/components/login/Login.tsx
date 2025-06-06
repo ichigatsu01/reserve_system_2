@@ -62,13 +62,13 @@ const Login = () => {
                             <Alert key={index} severity="warning" variant="filled">{msg}</Alert>
                         ))
                 }
-                <TextField label="診察番号" required error={isNumError}
+                <TextField label="診察番号" required error={isNumError} placeholder="0001"
                     onChange={(e) =>setPatientNum(e.target.value)}
                 />
-                <TextField label="飼い主様のお名前" required error={isNameError}
+                <TextField label="飼い主様のお名前" required error={isNameError} placeholder="ツナ田　まぐ太郎"
                     onChange={(e) =>setPatientName(e.target.value)}
                 />
-                <TextField label="電話番号下4桁" required error={isTelError}
+                <TextField label="電話番号下4桁" required error={isTelError} placeholder="1234"
                     onChange={(e) =>setPatientTel(e.target.value)}
                 />
                 <Button
@@ -77,7 +77,7 @@ const Login = () => {
                 >
                     予約画面へ
                 </Button>
-                <Button // !テスト用ログインボタン
+                {/* <Button // !テスト用ログインボタン
                     variant="contained"
                     color="secondary"
                     onClick={() => {
@@ -88,7 +88,7 @@ const Login = () => {
                     }}
                 >
                     テスト用ログインボタン
-                </Button>
+                </Button> */}
             
             </Stack>
         </Stack>

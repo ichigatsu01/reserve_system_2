@@ -1,6 +1,6 @@
 import FullCalendar from '@fullcalendar/react';
-import { Box } from '@mui/material';
-import type { DateClickArg, EventContentArg } from 'fullcalendar/index.js';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import type { DateClickArg, EventApi, EventClickArg } from 'fullcalendar/index.js';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import { useContext, useEffect, useState } from 'react';
@@ -8,6 +8,7 @@ import { InputContext } from '../providers/ReserveProvider';
 import InputReserve from './InputReserve/InputReserve';
 import ReserveConfirm from './InputReserve/ReserveConfirm';
 import { loadPatient } from '../firebase/LoadReservePatient';
+import { FunctionContext } from '../providers/FunctionProvider';
 
 //* memo:
 //* EventContentArg ... イベントの内容を表示するための型
@@ -21,20 +22,15 @@ type eventType = {
     endTime?: string,
     title?: string,
     start?: string,
-    end?: string
+    end?: string,
+    eventType: string,
+    details?: string,
+    petName?: string
 }
 
-// Firestore由来のイベントを取得するための型。まず中身の型を設定する
-// type addEventsType = {
-//     title: string,
-//     start: string,
-//     end: string
-// }
-// addEventsには複数日時の予約が入るため、配列であることを明示
-// type addEventsArrayType = addEventsType[];
-
 const AddCalendar = () => {
-    const { isOpenForm, setIsOpenForm, isOpenConfirm } = useContext(InputContext)
+    const { isOpenForm, setIsOpenForm, isOpenConfirm } = useContext(InputContext);
+    const { patientNum } = useContext(FunctionContext);
 
     // !InputReserveに渡すargの獲得
     const [ dateArg, setDateArg ] = useState<DateClickArg | null>(null)
@@ -44,34 +40,31 @@ const AddCalendar = () => {
         {
         daysOfWeek: [0, 3],
         display: 'background',
-        color: '#000'
+        color: '#000',
+        eventType: 'closed'
         },
         {
         startTime: '13:00',
         endTime: '16:00',
         daysOfWeek: [1, 2, 4, 5],
         display: 'background',
-        color: '#000'
+        color: '#000',
+        eventType: 'closed'
         },
         {
         startTime: '13:00',
         endTime: '21:00',
         daysOfWeek: [6],
         display: 'background',
-        color: '#000'
+        color: '#000',
+        eventType: 'closed'
         },
-        // ここから通常イベント
-        { title: 'ダミー', start: '2025-06-04T13:00:00', end: '2025-06-04T13:30:00', color: 'red' }
     ])
-
-    //* Firestoreからのイベント取得用。後に追加する予定の病院休業日など、管理側のイベントも追加できるようにするか要検討
-    // しかしよく考えると出番がなかったという
-    // const [ addEvents, setAddEvents ] = useState<addEventsArrayType>([])
 
     // 患者予約取得
     useEffect(() => {
         const fetchData = async() => {
-            const result = await loadPatient();
+            const result = await loadPatient(patientNum);
             if (result) {
                 setAllEvents(prev => [...prev, ...result]);
             }
@@ -86,7 +79,41 @@ const AddCalendar = () => {
         }
     }, [dateArg])
     const handleDateClick = (arg: DateClickArg) => {
-        setDateArg(arg)
+        // 営業時間外は予約できないようにする
+        const date = arg.date;
+        const hour = date.getHours();
+        const day = date.getDay(); // 0 = 日曜, 1 = 月曜, ..., 6 = 土曜
+        
+        // 診療時間外ロジック
+        const isClosed =
+            // 日曜・水曜は終日休診
+            day === 0 || day === 3 ||
+            // 月火木金：13〜16時は休診
+            ([1, 2, 4, 5].includes(day) && hour >= 13 && hour < 16) ||
+            // 土曜：13〜21時は休診
+            (day === 6 && hour >= 13);
+        if (isClosed) {
+            alert('診療時間外です');
+        } else {
+            // alert('予約可能です');
+            setDateArg(arg)
+        }
+    }
+
+    // クリック...イベントのあるエリア
+    const [ isOpenReserved, setIsOpenReserved ] = useState(false);
+    const [ selectedEvent, setSelecedEvemt] = useState<EventApi | null>(null);
+
+    const handleEventClick = (arg: EventClickArg) => {
+        if (arg.event.extendedProps.eventType == 'closed') {
+            return null;
+        }
+        if (arg.event.extendedProps.patientNum == patientNum) {
+            setSelecedEvemt(arg.event);
+            setIsOpenReserved(true);
+        } else {
+            alert('別の人の予約です');
+        }
     }
 
     // Fullcalendarを作成する
@@ -110,24 +137,22 @@ const AddCalendar = () => {
                         const day = date.getDate();
                         const weekdayNames = ['日', '月', '火', '水', '木', '金', '土'];
                         const weekday = weekdayNames[date.getDay()];
-
                         const container = document.createElement('div')
                         container.innerHTML = `${day}<br><span>(${weekday})</span>`;
                         return { domNodes: [container]}
                     }}
                     dateClick={handleDateClick}
+                    eventClick={handleEventClick}
+                    initialDate='2025-06-01'
                 />
             </Box>
         )
     }
 
     // カレンダー内に表示する内容
-    function renderEventContent(eventInfo: EventContentArg) {
-        return (
-            <>
-                <i>{eventInfo.event.title}</i>
-            </>
-        )
+    function renderEventContent() {
+        // モバイル表示を意識し、色だけでの識別とする
+        return null;
     }
 
 
@@ -139,6 +164,22 @@ const AddCalendar = () => {
             </Box>
             {isOpenForm && <InputReserve dateArg={dateArg} />}
             {isOpenConfirm && <ReserveConfirm />}
+            {isOpenReserved && selectedEvent && (
+                <Dialog
+                    open={isOpenReserved}
+                    onClose={() => setIsOpenReserved(false)}
+                >
+                    <DialogTitle>あなたの予約です</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>予約日：{selectedEvent.start?.toLocaleString()}</DialogContentText>
+                        <DialogContentText>ペットのお名前：{selectedEvent.extendedProps.petName}</DialogContentText>
+                        <DialogContentText>診察内容：{selectedEvent.extendedProps.details}</DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setIsOpenReserved(false)}>閉じる</Button>
+                    </DialogActions>
+                </Dialog>
+            )}
         </>
     )
 }

@@ -22,6 +22,7 @@ const PatientMenu = () => {
     return (
         <Stack sx={{width:'90vw', maxWidth: '1000px', alignItems: 'center', mx: 'auto', my: '20px'}}>
             <Typography variant='h5'>ようこそ、{patientName}様</Typography>
+            <Typography variant='body1'>オレンジ色のセルがあなたの予約です</Typography>
             <Button variant='contained' onClick={handleLogout} sx={{width: '100px', marginTop: '20px'}}>ログアウト</Button>
             <AddCalendar />
         </Stack>
