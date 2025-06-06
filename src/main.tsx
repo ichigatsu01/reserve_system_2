@@ -5,6 +5,7 @@ import { FunctionProvider } from './components/providers/FunctionProvider.tsx'
 import { InputProvider } from './components/providers/ReserveProvider.tsx'
 // @ts-ignore
 import TestCalender from './test/TestCalender'
+// @ts-ignore
 import TestFirebase from './components/firebase/TestFirebase.tsx'
 
 createRoot(document.getElementById('root')!).render(
