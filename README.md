@@ -20,7 +20,7 @@ Vercelにて公開しています　→　([リンク](https://reserve-system-2.
 ## 技術スタック
 - HTML/CSS
 - TypeScript
-- Fullcalender.js
+- Fullcalendar.js
 - React
 - Vite
 - MaterialUI
@@ -43,3 +43,6 @@ firestoreのonSnapshotを使うか、Routeによる画面遷移が必要であ�
   - Firebaseを用いたGoogleOATHによる認証
   - 患者の予約を確認したり、病院の休診日を追加できる管理者用画面
   - 患者予約画面での予約変更・取消機能
+
+## アイコンについて
+本サイトでは [MUI](https://mui.com/) のコンポーネントを使用しています。
